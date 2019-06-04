@@ -50,12 +50,16 @@ function checkDocument(){
         var contrastToggle = $('<a id="contrast-toggle" href="#"></a>');
         $(append).append(contrastToggle).promise().done(function(){
             // update contrast button state
+            var toggleContrast = localStorage.getItem('high-contrast') == 1;
             injectCSS();
-            checkContrast(false);
+            checkContrast(toggleContrast);
             
             // add click event listener
             contrastToggle.on('click', function(e){
                 e.preventDefault();
+                var highContrastValue = localStorage.getItem('high-contrast');
+                highContrastValue = (highContrastValue == null || highContrastValue == 0) ? 1 : 0;
+                localStorage.setItem('high-contrast', highContrastValue);
                 checkContrast(true);
             });
         });
