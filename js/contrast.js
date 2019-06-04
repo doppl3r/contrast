@@ -14,12 +14,10 @@ function checkDocument(){
         var hostname = window.location.hostname;
         var protocol = window.location.protocol;
         var src = "";
-        var url = "";
         var append = "";
         
-        // set URL parameters
+        // define parameter values from script url attribute
         function setParameters(){
-            // define parameter values from URL
             var params = {};
             src = $('[src*="contrast.js"').attr('src');
             if (src.substring(0, 4) != 'http') src = protocol + '//' + hostname + src;
@@ -29,20 +27,20 @@ function checkDocument(){
             if (append == null) append = 'body';
         }
         
-        // check contrast state
-        function checkContrast(toggle){
-            if (toggle == true) $('body').toggleClass('high-contrast');
-            var toggleEnabled = $('body').hasClass('high-contrast');
-            var toggleText = (toggleEnabled == false) ? 'enable high contrast' : 'disable high contrast';
-            $(contrastToggle).text(toggleText);
-        }
-        
         // inject css link
         function injectCSS(){
             // append css link if parameter exists
             if (css != null){        
                 $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" />');
             }
+        }
+
+        // check contrast state
+        function checkContrast(toggle){
+            if (toggle == true) $('body').toggleClass('high-contrast');
+            var toggleEnabled = $('body').hasClass('high-contrast');
+            var toggleText = (toggleEnabled == false) ? 'enable high contrast' : 'disable high contrast';
+            $(contrastToggle).text(toggleText);
         }
         
         // define URL parameters
